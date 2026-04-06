@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Байгалан — Төрсөн өдрийн мэнд! 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --pink-light: #ffb3cc;
+    --pink-pale: #fff0f5;
+    --red: #e63678;
+    --cream: #fff8fb;
+    --text: #5a2040;
+    --gold: #f5c842;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated gradient background */
+  .bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4ee 30%, #fff5e0 60%, #ffe8f0 100%);
+    z-index: 0;
+    animation: bgShift 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgShift {
+    0% { background: linear-gradient(135deg, #fff0f5, #ffe4ee, #fff5e0); }
+    100% { background: linear-gradient(135deg, #ffe8ef, #ffd6e7, #fff0e0); }
+  }
+
+  /* Floating hearts */
+  .hearts-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 1.5rem;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(0.5) rotate(-15deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) scale(1.2) rotate(15deg); opacity: 0; }
+  }
+
+  /* Page content */
+  .page {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px 80px;
+    min-height: 100vh;
+  }
+
+  /* Top badge */
+  .badge {
+    background: linear-gradient(135deg, var(--pink), var(--red));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 8px 24px;
+    border-radius: 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+    animation: popIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Names section */
+  .names-section {
+    text-align: center;
+    margin-bottom: 10px;
+    animation: slideDown 1s 0.3s ease both;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .main-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(4.5rem, 14vw, 8rem);
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+    text-shadow: 2px 4px 20px rgba(230,54,120,0.25);
+    position: relative;
+    display: inline-block;
+  }
+
+  .main-name::after {
+    content: '✦';
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    font-size: 1.2rem;
+    color: var(--gold);
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .sub-name {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--pink);
+    font-weight: 400;
+    margin-top: 6px;
+    letter-spacing: 2px;
+  }
+
+  /* Heart divider */
+  .heart-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0;
+    animation: fadeIn 1s 0.6s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .hd-line {
+    width: 80px;
+    height: 1.5px;
+    background: linear-gradient(to right, transparent, var(--pink-light));
+  }
+
+  .hd-line.right {
+    background: linear-gradient(to left, transparent, var(--pink-light));
+  }
+
+  .hd-hearts {
+    color: var(--pink);
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+  }
+
+  /* Main card */
+  .main-card {
+    background: white;
+    border-radius: 24px;
+    padding: 44px 48px;
+    max-width: 640px;
+    width: 92%;
+    text-align: center;
+    box-shadow:
+      0 8px 40px rgba(255,107,157,0.12),
+      0 2px 8px rgba(255,107,157,0.08);
+    animation: slideUp 1s 0.5s ease both;
+    position: relative;
+    overflow: hidden;
+    border: 1.5px solid rgba(255,179,204,0.4);
+  }
+
+  .main-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--pink-light), var(--red), var(--gold), var(--red), var(--pink-light));
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-label {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+
+  .msg-text {
+    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    color: var(--text);
+    line-height: 2;
+    font-weight: 300;
+  }
+
+  .msg-text .highlight {
+    color: var(--red);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .msg-text .gold-text {
+    color: #c8962a;
+    font-weight: 600;
+  }
+
+  /* Special tag */
+  .special-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #fff0f5, #ffe4ee);
+    border: 1.5px solid var(--pink-light);
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin-top: 22px;
+    letter-spacing: 1px;
+  }
+
+  /* Wish pills */
+  .wishes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 40px;
+    max-width: 700px;
+    width: 92%;
+    animation: slideUp 1s 0.9s ease both;
+  }
+
+  .wish {
+    background: white;
+    border: 1.5px solid rgba(255,179,204,0.5);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 145px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+
+  .wish:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(255,107,157,0.18);
+    border-color: var(--pink);
+  }
+
+  .wish-emoji { font-size: 1.8rem; }
+
+  .wish-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .wish-sub {
+    font-size: 0.72rem;
+    color: #b07090;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Cake section */
+  .cake-section {
+    margin-top: 50px;
+    animation: slideUp 1s 1.1s ease both;
+    text-align: center;
+  }
+
+  .cake {
+    font-size: 4rem;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-12px) scale(1.05); }
+  }
+
+  .cake-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--pink);
+    margin-top: 10px;
+  }
+
+  /* Ochko love note */
+  .love-note {
+    margin-top: 40px;
+    background: linear-gradient(135deg, #fff0f5, #ffe8f0);
+    border: 1.5px dashed var(--pink-light);
+    border-radius: 20px;
+    padding: 28px 36px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: slideUp 1s 1.3s ease both;
+  }
+
+  .love-note-label {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .love-note-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--red);
+    line-height: 1.7;
+  }
+
+  .love-sig {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #b07090;
+    font-style: italic;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    top: -20px;
+    border-radius: 2px;
+    animation: confFall linear forwards;
+  }
+
+  @keyframes confFall {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .main-card { padding: 30px 22px; }
+    .wish { width: 130px; }
+    .love-note { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- Floating hearts -->
+<div class="hearts-container" id="hearts"></div>
+
+<div class="page">
+  <div class="badge">🎂 Төрсөн өдрийн мэнд 🎂</div>
+
+  <div class="names-section">
+    <span class="main-name">Баясаглан</span>
+    <span class="sub-name">💕 Ochko-гийн ирээдүйн эхнэр 💕</span>
+  </div>
+
+  <div class="heart-divider">
+    <div class="hd-line"></div>
+    <div class="hd-hearts">♥ ♥ ♥</div>
+    <div class="hd-line right"></div>
+  </div>
+
+  <div class="main-card">
+    <div class="msg-label">✦ Онцгой мэдэгдэл ✦</div>
+    <p class="msg-text">
+      Энэ гоё өдөр<br>
+      <span class="highlight">Баясаглан</span>-д зориулсан<br>
+      халуун дулаан мэндийг хүргье! 🌸<br><br>
+      Чи <span class="gold-text">Ochko-гийн</span> хамгийн их хайрладаг,<br>
+      хамгийн их нандигндаг хүн —<br>
+      <span class="highlight">ирээдүйн эхнэр нь</span> юм шүү! 💍<br><br>
+      Өнөөдрийн энэ өдөр<br>
+      баяр хөөртэй, хайр дүүрэн байх болтугай! 🎉
+    </p>
+    <div class="special-tag">💍 Ochko + Баясаглан  💍</div>
+  </div>
+
+  <div class="wishes">
+    <div class="wish">
+      <span class="wish-emoji">💖</span>
+      <div class="wish-label">Хайр</div>
+      <div class="wish-sub">Очко-гийн хайр үүрд байх болтугай</div>
+    </div>
+    <div class="wish">
+      <span class="wish-emoji">🌸</span>
+      <div class="wish-label">Аз жаргал</div>
+      <div class="wish-sub">Өдөр бүр инээмсэглэл дүүрэн байх болтугай</div>
+    </div>
+    <div class="wish">
+      <span class="wish-emoji">✨</span>
+      <div class="wish-label">Мөрөөдөл</div>
+      <div class="wish-sub">Бүх хүсэл биелэх болтугай</div>
+    </div>
+    <div class="wish">
+      <span class="wish-emoji">💍</span>
+      <div class="wish-label">Ирээдүй</div>
+      <div class="wish-sub">Гэрлэх тэр өдөр ойрхон байх болтугай!</div>
+    </div>
+    <div class="wish">
+      <span class="wish-emoji">🌟</span>
+      <div class="wish-label">Эрүүл мэнд</div>
+      <div class="wish-sub">Жил бүр эрүүл чийрэг байх болтугай</div>
+    </div>
+  </div>
+
+  <div class="cake-section">
+    <span class="cake">🎂</span>
+    <div class="cake-text">Төрсөн өдрийн баяртай, Хөөрхөн Баясаглан! 🎉</div>
+  </div>
+
+  <div class="love-note">
+    <div class="love-note-label">💌 Ochko-гаас 💌</div>
+    <div class="love-note-text">
+      "Чиний инээмсэглэл бол<br>
+      миний хамгийн дуртай зүйл —<br>
+      төрсөн өдрийн мэнд! 💕"
+    </div>
+    <div class="love-sig">— Очко, чиний ирээдүйн нөхөр 😄</div>
+  </div>
+</div>
+
+<script>
+  // Floating hearts
+  const heartsEl = document.getElementById('hearts');
+  const heartEmojis = ['💕','💖','💗','💓','💝','❤️','🌸','✨'];
+  for (let i = 0; i < 25; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.style.cssText = `
+      left: ${Math.random() * 100}%;
+      font-size: ${Math.random() * 1.2 + 0.8}rem;
+      animation-duration: ${(Math.random() * 8 + 7).toFixed(1)}s;
+      animation-delay: ${(Math.random() * 12).toFixed(1)}s;
+    `;
+    heartsEl.appendChild(h);
+  }
+
+  // Confetti burst
+  const colors = ['#ff6b9d','#f5c842','#e63678','#ffb3cc','#ff9ecd','#fff'];
+  function launchConfetti() {
+    for (let i = 0; i < 100; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.cssText = `
+        left: ${Math.random() * 100}%;
+        width: ${Math.random() * 10 + 5}px;
+        height: ${Math.random() * 10 + 5}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        animation-duration: ${(Math.random() * 3 + 2.5).toFixed(1)}s;
+        animation-delay: ${(Math.random() * 1.5).toFixed(1)}s;
+      `;
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 6000);
+    }
+  }
+
+  window.addEventListener('load', () => setTimeout(launchConfetti, 300));
+</script>
+</body>
+</html>
